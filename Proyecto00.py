@@ -1,20 +1,7 @@
 import requests
 import pandas as pd
-import json
 import time
 from datetime import date
-def obtener_tipo_cambio():
-    try:
-      url_api = "https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR"
-      respuesta = requests.get(url_api, timeout=5)
-      datos = respuesta.json()
-      tipo_cambio = datos["rates"]["EUR"]
-    except Exception as error:
-      print(f"Ocurrio un error en la red: {error}")
-      tipo_cambio = 0.92
-    return tipo_cambio
-
-
 def bajar_paginas(url_base):
  todas = []
 
@@ -41,8 +28,6 @@ urlinmobiliaria = "https://c21.com.bo/v/resultados/en-pais_bolivia/en-estado_la-
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 }
-tipo_cambio = obtener_tipo_cambio()                                 # NUEVO
-print(tipo_cambio)
 todas = bajar_paginas(urlinmobiliaria)
 print("Propiedades encontradas:", len(todas))
 urls = []
@@ -132,4 +117,3 @@ def mostrar_resumen(resumido):
 
     
 mostrar_resumen(df)
-
